@@ -17,6 +17,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpSession;
 
 
+
 /**
  *
  * @author Nusrath
@@ -49,7 +50,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("role", user.getRole());
 
             // Redirect to dashboard or admin page
-            response.sendRedirect("index.html");
+            response.sendRedirect("JSP/mainDashboard.jsp");
         } else {
             // Redirect back to login with error
             response.sendRedirect("login.jsp?error=invalid");
