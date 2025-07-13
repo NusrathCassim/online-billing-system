@@ -4,10 +4,6 @@ import java.sql.*;
 import javaClasses.userClass;
 
 public class UserDao {
-//
-//    public boolean validate(userClass user) {
-//        
-//    }
 
   public boolean validate(userClass user) {
     boolean isValid = false;
@@ -29,7 +25,9 @@ public class UserDao {
         }
 
     } catch (SQLException | ClassNotFoundException e) {
-        System.err.println("Error during login validation: " + e.getMessage());
+        System.err.println("Error during login validation: " + e.getMessage());     
+//        System.err.println("Error during login validation: " + e.getMessage());
+
     }
 
     return isValid;
