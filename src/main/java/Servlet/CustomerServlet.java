@@ -30,7 +30,8 @@ public class CustomerServlet extends HttpServlet {
         System.out.println("Customers fetched: " + list.size());
 
         req.setAttribute("customerList", list);
-        req.getRequestDispatcher("/JSP/CustomerList.jsp").forward(req, res);
+        req.getRequestDispatcher("JSP/CustomerList.jsp").forward(req, res);
+
     }
 
     @Override
