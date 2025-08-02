@@ -5,6 +5,7 @@
 package Servlet;
 
 import dao.CustomerDao;
+import dto.CustomerDto;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import javaClasses.Customer;
+import mapper.CustomerMapper;
 
 /**
  *
@@ -30,26 +32,52 @@ public class CustomerServlet extends HttpServlet {
         System.out.println("Customers fetched: " + list.size());
 
         req.setAttribute("customerList", list);
-        req.getRequestDispatcher("JSP/CustomerList.jsp").forward(req, res);
+        req.getRequestDispatcher("JSP/Customer/CustomerList.jsp").forward(req, res);
 
     }
 
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+//        throws ServletException, IOException {
+//
+//        String action = req.getParameter("action");
+//        if ("add".equals(action)) {
+//            Customer c = new Customer();
+//            c.setName(req.getParameter("name"));
+//            c.setEmail(req.getParameter("email"));
+//            c.setPhone(req.getParameter("phone"));
+//            dao.addCustomer(c);
+//        } else if ("delete".equals(action)) {
+//            int id = Integer.parseInt(req.getParameter("id"));
+//            dao.deleteCustomer(id);
+//        }
+//
+//        res.sendRedirect("CustomerServlet");
+//    }
+    
+    
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
 
-        String action = req.getParameter("action");
-        if ("add".equals(action)) {
-            Customer c = new Customer();
-            c.setName(req.getParameter("name"));
-            c.setEmail(req.getParameter("email"));
-            c.setPhone(req.getParameter("phone"));
-            dao.addCustomer(c);
-        } else if ("delete".equals(action)) {
-            int id = Integer.parseInt(req.getParameter("id"));
-            dao.deleteCustomer(id);
-        }
+    String action = req.getParameter("action");
 
-        res.sendRedirect("CustomerServlet");
+    if ("add".equals(action)) {
+        CustomerDto dto = new CustomerDto(
+            req.getParameter("name"),
+            req.getParameter("email"),
+            req.getParameter("phone")
+        );
+        Customer customer = CustomerMapper.toEntity(dto);
+        dao.addCustomer(customer);
+
+    } else if ("delete".equals(action)) {
+        int id = Integer.parseInt(req.getParameter("id"));
+        dao.deleteCustomer(id);
     }
+
+    res.sendRedirect("CustomerServlet");
+}
+
+    
 }
