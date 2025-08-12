@@ -136,17 +136,18 @@
             <div class="card">
                 <h3>Manage Items</h3>
                 <p>Handle item catalog and pricing.</p>
-                <a href="items.jsp">Open</a>
+                <a href="${pageContext.request.contextPath}/ItemServelt">Open</a>
             </div>
             <div class="card">
                 <h3>Billing</h3>
                 <p>Generate and print bills easily.</p>
-                <a href="billing.jsp">Open</a>
+                 <a href="${pageContext.request.contextPath}/BillServlet">Open</a>
+<!--                <a href="billing.jsp">Open</a>-->
             </div>
             <div class="card">
                 <h3>Reports</h3>
                 <p>View transaction history and analytics.</p>
-                <a href="reports.jsp">Open</a>
+                <a href="${pageContext.request.contextPath}/ReportServlet">Open</a>
             </div>
         </div>
 
