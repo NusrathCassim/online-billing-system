@@ -1,83 +1,55 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Servlet;
 
-import dao.CustomerDao;
-import dto.CustomerDto;
+import Service.CustomerService;
+import javaClasses.Customer;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import javaClasses.Customer;
-import mapper.CustomerMapper;
 
-/**
- *
- * @author Nusrath
- */
 public class CustomerServlet extends HttpServlet {
 
-    CustomerDao dao = new CustomerDao();
+    private final CustomerService customerService = new CustomerService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
-        throws ServletException, IOException {
-        List<Customer> list = dao.getAllCustomers();
-
-        System.out.println("Customers fetched: " + list.size());
-
-        req.setAttribute("customerList", list);
-        req.getRequestDispatcher("JSP/Customer/CustomerList.jsp").forward(req, res);
-
+            throws ServletException, IOException {
+        try {
+            List<Customer> list = customerService.listAllCustomers();
+            req.setAttribute("customerList", list);
+            req.getRequestDispatcher("JSP/Customer/CustomerList.jsp").forward(req, res);
+        } catch (Exception e) {
+            throw new ServletException("Error fetching customers", e);
+        }
     }
 
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse res)
-//        throws ServletException, IOException {
-//
-//        String action = req.getParameter("action");
-//        if ("add".equals(action)) {
-//            Customer c = new Customer();
-//            c.setName(req.getParameter("name"));
-//            c.setEmail(req.getParameter("email"));
-//            c.setPhone(req.getParameter("phone"));
-//            dao.addCustomer(c);
-//        } else if ("delete".equals(action)) {
-//            int id = Integer.parseInt(req.getParameter("id"));
-//            dao.deleteCustomer(id);
-//        }
-//
-//        res.sendRedirect("CustomerServlet");
-//    }
-    
-    
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
-        throws ServletException, IOException {
-
-    String action = req.getParameter("action");
-
-    if ("add".equals(action)) {
-        CustomerDto dto = new CustomerDto(
-            req.getParameter("name"),
-            req.getParameter("email"),
-            req.getParameter("phone")
-        );
-        Customer customer = CustomerMapper.toEntity(dto);
-        dao.addCustomer(customer);
-
-    } else if ("delete".equals(action)) {
-        int id = Integer.parseInt(req.getParameter("id"));
-        dao.deleteCustomer(id);
+            throws ServletException, IOException {
+        String action = req.getParameter("action");
+        try {
+            if ("add".equals(action)) {
+                Customer customer = new Customer();
+                customer.setName(req.getParameter("name"));
+                customer.setEmail(req.getParameter("email"));
+                customer.setPhone(req.getParameter("phone"));
+                customerService.addCustomer(customer);
+            } else if ("delete".equals(action)) {
+                int id = Integer.parseInt(req.getParameter("id"));
+                customerService.deleteCustomer(id);
+            } else if ("update".equals(action)) {
+                Customer customer = new Customer();
+                customer.setId(Integer.parseInt(req.getParameter("id")));
+                customer.setName(req.getParameter("name"));
+                customer.setEmail(req.getParameter("email"));
+                customer.setPhone(req.getParameter("phone"));
+                customerService.updateCustomer(customer);
+            }
+            res.sendRedirect("CustomerServlet");
+        } catch (Exception e) {
+            throw new ServletException("Error processing customer action", e);
+        }
     }
-
-    res.sendRedirect("CustomerServlet");
-}
-
-    
 }

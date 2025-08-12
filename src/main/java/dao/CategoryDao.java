@@ -32,4 +32,15 @@ public class CategoryDao {
         }
         return categories;
     }
+     public boolean addCategory(CategoryClass category) {
+        String sql = "INSERT INTO category (name) VALUES (?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, category.getName());
+            return stmt.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
