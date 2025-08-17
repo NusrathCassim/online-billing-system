@@ -19,21 +19,17 @@
             color: #222;
         }
 
-        .btn {
-            font-family: 'Fredoka', sans-serif;
-            padding: 8px 14px;
-            margin: 4px 2px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 3px 3px 0px #000;
-            display: inline-block;
-        }
-
         .yellow-btn {
-            background-color: #ffcc00;
+            text-decoration: none;
+           background-color: #ffcc00;
+            border: none;
+            margin-left: 10px;
             color: #000;
             font-weight: bold;
+            padding: 0.7rem 1.2rem;
+            border-radius: 12px;
+            box-shadow: 4px 4px 0px #000;
+            cursor: pointer;
         }
 
         .yellow-btn:hover {
@@ -88,7 +84,7 @@
 <h2>Customer List</h2>
 
 <a href="JSP/Customer/addCustomer.jsp" class="btn yellow-btn">➕ Add New Customer</a>
-<a href="JSP/mainDashboard.jsp" class="back-link">← Back to Dashboard</a>
+<a href="JSP/mainDashboard.jsp" class="btn yellow-btn">← Back to Dashboard</a>
 
 <c:if test="${empty customerList}">
     <p>No customers found.</p>

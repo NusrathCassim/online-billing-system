@@ -24,17 +24,16 @@
             align-items: center;
         }
         .btn {
-            background-color: #ffcc00;
-            padding: 10px 18px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
-            color: #000;
             text-decoration: none;
-            display: inline-block;
-            transition: background-color 0.3s ease;
+           background-color: #ffcc00;
+            border: none;
+            color: #000;
+            margin-left: 10px;
+            font-weight: bold;
+            padding: 0.7rem 1.2rem;
+            border-radius: 12px;
+            box-shadow: 4px 4px 0px #000;
+            cursor: pointer;
         }
         .btn:hover {
             background-color: #ffb700;
@@ -49,47 +48,25 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: #fff;
-            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.12);
+            margin-top: 1rem;
+            background: #fff;
             border-radius: 12px;
             overflow: hidden;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
         }
-        thead tr {
-            background-color: #f7d400;
-        }
-        thead th {
-            padding: 14px 20px;
-            font-weight: 700;
-            font-size: 1rem;
-            color: #222;
+        th, td {
+            padding: 14px;
             text-align: left;
-            border-bottom: 2px solid #e6c200;
-        }
-        tbody tr {
             border-bottom: 1px solid #eee;
         }
-        tbody tr:nth-child(even) {
-            background-color: #fffbea;
+
+        th {
+            background-color: #fff8dc;
+            font-family: 'Patrick Hand', cursive;
         }
-        tbody td {
-            padding: 12px 20px;
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-        tbody td:last-child {
-            white-space: nowrap;
-        }
-        tbody .btn {
-            padding: 7px 15px;
-            font-size: 0.9rem;
-            box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.3);
-            margin-right: 8px;
-        }
-        tbody .btn:hover {
-            background-color: #e6b800;
-        }
+
         .btn-delete {
-            background-color: #ff3333;
+            background-color: #ff3f33;
             color: #fff;
             box-shadow: 2px 3px 6px rgba(150, 0, 0, 0.5);
         }
@@ -140,7 +117,7 @@
 </head>
 <body>
 
-    <h1>Items</h1>
+<!--    <h1>Items</h1>-->
 
     <div class="actions">
         <a href="${pageContext.request.contextPath}/ItemServlet?action=add" class="btn">+ Add Item</a>
