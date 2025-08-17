@@ -95,6 +95,11 @@
       color: #666;
       font-family: 'Patrick Hand', cursive;
     }
+     .error {
+            margin-top: 15px;
+            color: red;
+            
+        }
   </style>
     </head>
     <body>
@@ -112,7 +117,16 @@
                 <button type="submit" class="cta-btn">Login</button>
               </form>
               <p class="login-note">Access is restricted to authorized employees of Pahana Edu.</p>
-            </div>
+               <!-- Error message handling -->
+                <%
+                    String error = request.getParameter("error");
+                    if ("invalid".equals(error)) {
+                %>
+                    <div class="error">⚠️ Invalid username or password</div>
+                <%
+                    }
+                %>
+             </div>
           </section>
 
     </body>

@@ -33,6 +33,7 @@ public class LoginServlet extends HttpServlet {
         // Get form parameters
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+//        String Role = request.getParameter("role");
 
         // Create user object
         userClass user = new userClass();

@@ -27,13 +27,20 @@
         }
 
         .header {
-            background: #fff;
+    
             padding: 1.5rem 2rem;
             border-radius: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+           
+            background-color: #fffbe6;
+            border: 2px dashed #ffcc00;
+            border-radius: 20px;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
         }
 
         .header h1 {
@@ -131,7 +138,6 @@
                 <h3>Manage Customers</h3>
                 <p>Add, update, and delete customer records.</p>
                 <a href="${pageContext.request.contextPath}/CustomerServlet">Open</a>
-
             </div>
             <div class="card">
                 <h3>Manage Items</h3>
@@ -141,15 +147,23 @@
             <div class="card">
                 <h3>Billing</h3>
                 <p>Generate and print bills easily.</p>
-                 <a href="${pageContext.request.contextPath}/BillServlet">Open</a>
-<!--                <a href="billing.jsp">Open</a>-->
+                <a href="${pageContext.request.contextPath}/BillServlet">Open</a>
             </div>
+            <div class="card">
+                <h3>Help</h3>
+                <p>User Help Section.</p>
+                <a href="${pageContext.request.contextPath}/JSP/Help.jsp">Open</a>
+            </div>
+
+            <% if ("admin".equalsIgnoreCase(user.getRole())) { %>
             <div class="card">
                 <h3>Reports</h3>
                 <p>View transaction history and analytics.</p>
                 <a href="${pageContext.request.contextPath}/ReportServlet">Open</a>
             </div>
+            <% } %>
         </div>
+
 
     </div>
 </body>
