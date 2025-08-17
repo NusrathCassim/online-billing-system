@@ -9,11 +9,11 @@ import java.util.Date;
 import java.util.List;
 
 public class Bill {
-    private int id;
-    private int customerId;
-    private Date billDate;
-    private List<BillItem> items;
-    private double totalAmount;
+    public int id;
+    public int customerId;
+    public Date billDate;
+    public List<BillItem> items;
+    public double totalAmount;
 
     public Bill() {}
 
