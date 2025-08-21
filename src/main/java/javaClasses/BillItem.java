@@ -26,6 +26,8 @@ public class BillItem {
         this.totalPrice = quantity * unitPrice;
     }
 
+   
+
     // getters and setters...
 
     public int getId() {

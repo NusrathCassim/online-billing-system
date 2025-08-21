@@ -16,10 +16,9 @@ public class CustomerService {
         return customerDao.getAllCustomers();
     }
 
-    public boolean addCustomer(Customer customer) throws SQLException, ClassNotFoundException {
-        // Here you can add validation or business logic before adding
+    public boolean addCustomer(Customer customer) throws SQLException, ClassNotFoundException {        // Here you can add validation or business logic before adding
         customerDao.addCustomer(customer);
-        return true; // or handle success/failure properly
+        return true; 
     }
 
     public boolean updateCustomer(Customer customer) throws SQLException, ClassNotFoundException {
@@ -33,8 +32,6 @@ public class CustomerService {
     }
 
     public Customer getCustomerById(int id) throws SQLException, ClassNotFoundException {
-        // You can implement this method in CustomerDao if you want
-        // For now, let's assume you add it
         return customerDao.getCustomerById(id);
     }
 }

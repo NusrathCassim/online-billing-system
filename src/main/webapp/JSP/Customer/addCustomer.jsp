@@ -1,9 +1,3 @@
-<%-- 
-    Document   : addCustomer
-    Created on : Jul 13, 2025, 10:39:59 AM
-    Author     : Nusrath
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -87,28 +81,65 @@
         .back-link:hover {
             background-color: #ccc;
         }
+
+        .error {
+            color: red;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
 
     <h2>Add New Customer</h2>
 
-    <form action="${pageContext.request.contextPath}/CustomerServlet" method="post">
+    <form action="${pageContext.request.contextPath}/CustomerServlet" method="post" onsubmit="return validateForm()">
         <input type="hidden" name="action" value="add" />
 
         <label for="name">Name</label>
         <input type="text" name="name" id="name" required>
 
         <label for="email">Email</label>
-        <input type="email" name="email" id="email">
+        <input type="email" name="email" id="email" required>
+        <div id="emailError" class="error"></div>
 
         <label for="phone">Phone</label>
-        <input type="text" name="phone" id="phone">
+        <input type="text" name="phone" id="phone" required>
+        <div id="phoneError" class="error"></div>
 
         <button type="submit">Save Customer</button>
     </form>
 
     <a href="${pageContext.request.contextPath}/CustomerServlet" class="back-link">← Back to Customer List</a>
+
+    <script>
+        function validateForm() {
+            let email = document.getElementById("email").value.trim();
+            let phone = document.getElementById("phone").value.trim();
+            let emailError = document.getElementById("emailError");
+            let phoneError = document.getElementById("phoneError");
+            let valid = true;
+
+            // Reset errors
+            emailError.innerText = "";
+            phoneError.innerText = "";
+
+            // Email regex
+            let emailRegex = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
+            if (!emailRegex.test(email)) {
+                emailError.innerText = "Invalid email format!";
+                valid = false;
+            }
+
+            // Phone regex (10–15 digits)
+            let phoneRegex = /^[0-9]{10,15}$/;
+            if (!phoneRegex.test(phone)) {
+                phoneError.innerText = "Phone must be 10–15 digits!";
+                valid = false;
+            }
+
+            return valid;
+        }
+    </script>
 
 </body>
 </html>

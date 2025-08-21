@@ -126,43 +126,70 @@
     </div>
 
     <table>
-        <thead>
+       <thead>
+    <tr>
+        <th>ID</th>
+        <th>Item Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Availability</th> <!-- New Column -->
+        <th>Actions</th>
+    </tr>
+</thead>
+    <tbody>
+        <c:forEach var="item" items="${itemList}">
             <tr>
-                <th>ID</th>
-                <th>Item Name</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Actions</th>
+                <td>${item.id}</td>
+                <td>${item.name}</td>
+                <td>${item.categoryName}</td>
+                <td>${item.price}</td>
+                <td>${item.quantity}</td>
+
+                <!-- New Availability Column -->
+                <td>
+                    <c:choose>
+                        <c:when test="${item.quantity lt 10}">
+                            <span style="color:red; font-weight:bold;">⚠️ Restock</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span style="color:green; font-weight:bold;">Available</span>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+
+                <td>
+                    <!-- Edit button uses data attributes for safe data passing -->
+                    <button type="button" class="btn edit-btn"
+                        data-id="${item.id}"
+                        data-name="${item.name}"
+                        data-category-id="${item.categoryId}"
+                        data-price="${item.price}"
+                        data-quantity="${item.quantity}">
+                        Edit
+                    </button>
+
+                    <c:choose>
+                        <c:when test="${role eq 'admin'}">
+                            <form action="ItemServlet" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="${item.id}" />
+                                <input type="hidden" name="action" value="delete" />
+                                <button type="submit" class="btn btn-delete">Delete</button>
+                            </form>
+                        </c:when>
+                        <c:otherwise>
+                            <button type="button" class="btn btn-delete" 
+                                    style="opacity:0.6; cursor:not-allowed;" 
+                                    onclick="alert('⚠️ You are not allowed to delete items, please contact admin.')">
+                                Delete
+                            </button>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="item" items="${itemList}">
-                <tr>
-                    <td>${item.id}</td>
-                    <td>${item.name}</td>
-                    <td>${item.categoryName}</td>
-                    <td>${item.price}</td>
-                    <td>${item.quantity}</td>
-                    <td>
-                        <!-- Edit button uses data attributes for safe data passing -->
-                        <button type="button" class="btn edit-btn"
-                            data-id="${item.id}"
-                            data-name="${item.name}"
-                            data-category-id="${item.categoryId}"
-                            data-price="${item.price}"
-                            data-quantity="${item.quantity}">
-                            Edit
-                        </button>
-                        <form action="ItemServlet" method="post" style="display:inline;">
-                            <input type="hidden" name="id" value="${item.id}" />
-                            <input type="hidden" name="action" value="delete" />
-                            <button type="submit" class="btn btn-delete">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            </c:forEach>
-        </tbody>
+        </c:forEach>
+    </tbody>
+
     </table>
 
     <!-- Edit Modal -->

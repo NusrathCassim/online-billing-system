@@ -44,7 +44,6 @@ public class ItemDao {
         return false;
     }
     
-    // <-- Your new update method here
     public boolean updateItem(ItemClass item) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE item SET name = ?, category_id = ?, price = ?, quantity = ? WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -68,7 +67,7 @@ public class ItemDao {
          PreparedStatement stmt = conn.prepareStatement(sql)) {
         
         stmt.setInt(1, id);
-        return stmt.executeUpdate() > 0;  // true if deleted successfully
+        return stmt.executeUpdate() > 0; 
     } catch (SQLException e) {
         e.printStackTrace();
     }

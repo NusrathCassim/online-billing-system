@@ -12,6 +12,7 @@ public class BillSummary extends Bill {
         this.summaryGeneratedAt = new Timestamp(System.currentTimeMillis());
     }
 
+   
     // Getter + Setter
     public Timestamp getSummaryGeneratedAt() {
         return summaryGeneratedAt;
