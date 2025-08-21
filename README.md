@@ -1,4 +1,6 @@
-# 📘 Pahana Edu Billing System
+
+# online-billing-system
+
 
 ## Project Overview
 Pahana Edu Billing System is a **Java EE (JSP + Servlets + MySQL)** based web application designed for managing educational billing and inventory for **Pahana Edu Institute**.  
@@ -26,4 +28,5 @@ The system supports **Admin, Staff, and Customer** roles and provides modules fo
 | Database    | MySQL |
 | Server      | Apache Tomcat 10+ |
 | Principles  | MVC, SOLID, Design Patterns |
+
 

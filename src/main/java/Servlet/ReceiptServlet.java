@@ -27,23 +27,18 @@ public class ReceiptServlet extends HttpServlet {
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing billId parameter");
                 return;
             }
-
             int billId = Integer.parseInt(billIdStr);
             Bill bill = billDao.getBillById(billId);
             if (bill == null) {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Bill not found");
                 return;
             }
-
             Customer customer = customerDao.getCustomerById(bill.getCustomerId());
             List<BillItem> billItems = billDao.getBillItemsByBillId(billId);
-
             req.setAttribute("bill", bill);
             req.setAttribute("customer", customer);
             req.setAttribute("billItems", billItems);
-
             req.getRequestDispatcher("JSP/Billing/receipt.jsp").forward(req, resp);
-
         } catch (Exception e) {
             throw new ServletException("Error loading receipt", e);
         }

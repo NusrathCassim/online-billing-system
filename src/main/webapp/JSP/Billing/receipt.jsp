@@ -1,13 +1,12 @@
 <%-- 
     Document   : receipt
-    Created on : Aug 11, 2025, 12:00:15 AM
+    Created on : Aug 11, 2025, 12:00:15 AM
     Author     : Nusrath
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
 
 <html>
 <head>
@@ -20,6 +19,23 @@
         th { background-color: #eee; }
         .total { font-weight: bold; }
         .footer { margin-top: 30px; text-align: center; font-style: italic; color: #666; }
+        .print-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .print-btn:hover {
+            background: #45a049;
+        }
+        @media print {
+            .print-btn { display: none; } /* hide button when printing */
+        }
     </style>
 </head>
 <body>
@@ -67,6 +83,8 @@
     Visit again!
 </div>
 
+<!-- Print Button -->
+<button class="print-btn" onclick="window.print()">🖨 Print Receipt</button>
+
 </body>
 </html>
-

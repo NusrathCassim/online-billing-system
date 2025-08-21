@@ -8,9 +8,8 @@ import javaClasses.Customer;
 import javaClasses.Inventory;
 import javaClasses.ReportSummary;
 
-public class ReportDAO {
+public class ReportDAO implements IReportDAO {
 
-    // ---------------- BILL REPORTS ----------------
    // ---------------- BILL REPORTS ----------------
 public List<BillSummary> getBillReports() throws SQLException, ClassNotFoundException {
     List<BillSummary> list = new ArrayList<>();

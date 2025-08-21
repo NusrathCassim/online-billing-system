@@ -48,8 +48,6 @@ public class CustomerDao {
         }
         return customer;
     }
-
-
     public void addCustomer(Customer c) {
         String sql = "INSERT INTO customers (name, email, phone) VALUES (?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
