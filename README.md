@@ -29,4 +29,3 @@ The system supports **Admin, Staff, and Customer** roles and provides modules fo
 | Server      | Apache Tomcat 10+ |
 | Principles  | MVC, SOLID, Design Patterns |
 
-
