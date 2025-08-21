@@ -1,12 +1,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List, javaClasses.Customer"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+    String role = (String) session.getAttribute("role");
+%>
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Customer List</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Patrick+Hand&display=swap" rel="stylesheet">
+    
     <style>
         body {
             font-family: 'Fredoka', sans-serif;
@@ -106,13 +110,30 @@
                 <td>${c.email}</td>
                 <td>${c.phone}</td>
                 <td>
-                    <button class="btn yellow-btn" onclick="openEditModal('${c.id}', '${c.name}', '${c.email}', '${c.phone}')">Edit</button>
-                    <form action="CustomerServlet" method="post" style="display:inline;">
-                        <input type="hidden" name="action" value="delete"/>
-                        <input type="hidden" name="id" value="${c.id}"/>
-                        <button type="submit" class="btn yellow-btn">Delete</button>
-                    </form>
+                    <button class="btn yellow-btn" 
+                        onclick="openEditModal('${c.id}', '${c.name}', '${c.email}', '${c.phone}')">Edit</button>
+
+                    <c:choose>
+                        <c:when test="${role eq 'staff'}">
+                            <!-- Fake disabled Delete button with alert -->
+                            <button type="button" class="btn yellow-btn"
+                                style="opacity:0.6; cursor:not-allowed;"
+                                onclick="alert('⚠️ You are not allowed to delete, please contact admin')">
+                                Delete
+                            </button>
+                        </c:when>
+
+                        <c:otherwise>
+                            <!-- Normal delete form for admin -->
+                            <form action="CustomerServlet" method="post" style="display:inline;">
+                                <input type="hidden" name="action" value="delete"/>
+                                <input type="hidden" name="id" value="${c.id}"/>
+                                <button type="submit" class="btn yellow-btn">Delete</button>
+                            </form>
+                        </c:otherwise>
+                    </c:choose>
                 </td>
+
             </tr>
         </c:forEach>
     </table>

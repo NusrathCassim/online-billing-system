@@ -47,39 +47,26 @@ public class BillServlet extends HttpServlet {
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid items data");
                 return;
             }
-
             List<BillItem> billItems = new ArrayList<>();
-
             for (int i = 0; i < itemIds.length; i++) {
                 int itemId = Integer.parseInt(itemIds[i]);
                 int qty = Integer.parseInt(quantities[i]);
-                ItemClass item = itemService.getItemById(itemId);  // You need to implement getItemById
-
+                ItemClass item = itemService.getItemById(itemId); 
                 BillItem bi = new BillItem();
                 bi.setItemId(itemId);
                 bi.setItemName(item.getName());
                 bi.setQuantity(qty);
                 bi.setUnitPrice(item.getPrice());
                 bi.setTotalPrice(qty * item.getPrice());
-
                 billItems.add(bi);
             }
-             
+            
            int savedBillId = billService.createBill(customerId, billItems);
                 if (savedBillId > 0) {
                     resp.sendRedirect("ReceiptServlet?billId=" + savedBillId);
                 } else {
                     resp.sendRedirect("BillServlet?error=1");
                 }
-
-//            boolean success = billService.createBill(customerId, billItems);
-//            if (success) {
-//                resp.sendRedirect("BillServlet?success=1");
-//                resp.sendRedirect("ReceiptServlet?billId=" + savedBillId);
-//            } else {
-//                resp.sendRedirect("BillServlet?error=1");
-//            }
-
         } catch (SQLException | ClassNotFoundException e) {
             throw new ServletException(e);
         }

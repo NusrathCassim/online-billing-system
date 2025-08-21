@@ -1,4 +1,4 @@
-// BillDao.java
+
 package dao;
 
 import java.sql.*;
@@ -10,7 +10,7 @@ import javaClasses.BillItem;
 
 public class BillDao {
 
-    // Insert bill and get generated id
+  
     public int insertBill(Bill bill) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO bill (customer_id, bill_date, total_amount) VALUES (?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
@@ -32,7 +32,6 @@ public class BillDao {
         }
     }
 
-    // Insert bill items (multiple) in one go
     public void insertBillItems(int billId, List<BillItem> items) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO bill_item (bill_id, item_id, item_name, quantity, unit_price, total_price) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
@@ -50,9 +49,9 @@ public class BillDao {
         }
     }
 
-    // Optional: Fetch bills by customer or all bills
+
     public List<Bill> getBillsByCustomer(int customerId) throws SQLException, ClassNotFoundException {
-        // Implement if needed...
+
         return new ArrayList<>();
     }
     public Bill getBillById(int billId) throws SQLException, ClassNotFoundException {
@@ -96,7 +95,7 @@ public class BillDao {
         }
         return items;
     }
-    // Reduce item quantity after billing
+
     public void updateItemQuantities(List<BillItem> items) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE item SET quantity = quantity - ? WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();

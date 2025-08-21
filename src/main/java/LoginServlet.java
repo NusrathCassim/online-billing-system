@@ -1,28 +1,14 @@
-
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import javaClasses.userClass;
 import dao.UserDao;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpSession;
+import javaClasses.SessionManager;
 
-
-
-/**
- *
- * @author Nusrath
- */
-//@WebServlet("/LoginServlet")
 @WebServlet(urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
@@ -30,30 +16,29 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Get form parameters
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-//        String Role = request.getParameter("role");
 
         // Create user object
         userClass user = new userClass();
         user.setUsername(username);
         user.setPassword(password);
 
-        // Validate user
+        // Validate user from DAO
         UserDao userDao = new UserDao();
         boolean isValid = userDao.validate(user);
 
         if (isValid) {
-            // Store user in session
             HttpSession session = request.getSession();
-            session.setAttribute("loggedUser", user);
-            session.setAttribute("role", user.getRole());
 
-            // Redirect to dashboard or admin page
+            // set session attributes via SessionManager
+            SessionManager.setUserSession(session, username, user.getRole());
+
+            // store full user object too (optional)
+            session.setAttribute("loggedUser", user);
+
             response.sendRedirect("JSP/mainDashboard.jsp");
         } else {
-            // Redirect back to login with error
             response.sendRedirect("login.jsp?error=invalid");
         }
     }
